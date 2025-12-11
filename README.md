@@ -38,5 +38,6 @@ No installation required! This is a static web project.
  * Vanilla JavaScript (ES6+)
  * APIs: GraphQL (AniList) & REST (TVMaze)
  * Library: html2canvas
-📄 License
+
+## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
