@@ -2,7 +2,7 @@
 
 A modern, client-side web application designed to generate aesthetic information cards for Anime and Asian Dramas. Built with vanilla HTML, CSS, and JS, utilizing **AniList** and **TVMaze** APIs.
 
-![Project Preview](https://via.placeholder.com/800x400?text=Add+Your+Screenshot+Here)
+![TV Series Card](https://raw.githubusercontent.com/KerimDemirkaynak/TVSeriesCardGenerator/refs/heads/main/static/20251211_230440.webp)
 ## ✨ Features
 
 - **Dual Database Support:**
