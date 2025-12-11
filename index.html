@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Card Generator</title>
-    <meta name="description" content="Anime & Drama Card Generator">
+    
+    <title>TV Series Card Generator</title>
+    <meta name="description" content="Create beautiful info cards for your favorite Anime and TV Series. Download and share easily.">
+    <meta name="author" content="Kerim Demirkaynak">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/">
+    <meta property="og:title" content="TV Series Card Generator">
+    <meta property="og:description" content="Generate aesthetic cards for Anime and TV Series instantly.">
+    <meta property="og:image" content="https://kerimdemirkaynak.github.io/resimler/20241121_055155.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/">
+    <meta property="twitter:title" content="TV Series Card Generator">
+    <meta property="twitter:description" content="Generate aesthetic cards for Anime and TV Series instantly.">
+    <meta property="twitter:image" content="https://kerimdemirkaynak.github.io/resimler/20241121_055155.jpg">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/favicon-16x16.png">
+    <link rel="manifest" href="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://kerimdemirkaynak.github.io/TVSeriesCardGenerator/static/ms-icon-144x144.png">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
@@ -250,7 +281,7 @@
     <div class="header-bar">
         <div class="control-group">
             <button class="ctrl-btn active" id="btn-anime" onclick="setMode('ANIME')">Anime</button>
-            <button class="ctrl-btn" id="btn-drama" onclick="setMode('DRAMA')">Drama</button>
+            <button class="ctrl-btn" id="btn-tv" onclick="setMode('TV')">TV Series</button>
         </div>
         
         <div class="control-group">
@@ -302,7 +333,8 @@
         const dictionary = {
             en: {
                 placeholderAnime: "Enter anime name...",
-                placeholderDrama: "Enter drama name...",
+                placeholderTV: "Enter TV Series name...",
+                btnTV: "TV Series",
                 searchBtn: "Search",
                 downloadBtn: "Download Image",
                 labelGenre: "Genre",
@@ -313,7 +345,8 @@
             },
             tr: {
                 placeholderAnime: "Anime adı yazın...",
-                placeholderDrama: "Dizi adı yazın...",
+                placeholderTV: "Dizi adı yazın...",
+                btnTV: "Dizi",
                 searchBtn: "Ara",
                 downloadBtn: "Resmi İndir",
                 labelGenre: "Tür",
@@ -333,7 +366,7 @@
 
         // Durum Değişkenleri
         let state = {
-            mode: 'ANIME', // ANIME, DRAMA
+            mode: 'ANIME', // ANIME, TV
             lang: 'en',    // en, tr
             theme: 'light',// light, dark
             lastData: null // Dil değişince kartı güncellemek için veriyi tutuyoruz
@@ -363,22 +396,24 @@
             // Buton Yazıları
             document.getElementById('btn-lang').innerText = state.lang.toUpperCase();
             document.getElementById('btn-theme').innerText = state.theme === 'dark' ? t.btnDark : t.btnLight;
+            document.getElementById('btn-tv').innerText = t.btnTV; // Dizi / TV Series
             document.getElementById('search-btn').innerText = t.searchBtn;
             document.getElementById('download-btn').innerText = t.downloadBtn;
             
             // Etiketler
             document.getElementById('label-genre').innerText = t.labelGenre;
-            document.getElementById('label-studio').innerText = t.labelStudio;
-
-            // Placeholder
+            
+            // Placeholder ve Etiket güncellemesi
             const input = document.getElementById('searchInput');
             if (state.mode === 'ANIME') {
                 input.placeholder = t.placeholderAnime;
+                document.getElementById('label-studio').innerText = state.lang === 'tr' ? 'Stüdyo' : 'Studio';
                 document.getElementById('btn-anime').classList.add('active');
-                document.getElementById('btn-drama').classList.remove('active');
+                document.getElementById('btn-tv').classList.remove('active');
             } else {
-                input.placeholder = t.placeholderDrama;
-                document.getElementById('btn-drama').classList.add('active');
+                input.placeholder = t.placeholderTV;
+                document.getElementById('label-studio').innerText = t.labelStudio;
+                document.getElementById('btn-tv').classList.add('active');
                 document.getElementById('btn-anime').classList.remove('active');
             }
 
@@ -455,7 +490,7 @@
                 const res = await fetch(`https://api.tvmaze.com/search/shows?q=${search}`);
                 const data = await res.json();
                 const shows = data.map(item => item.show);
-                renderList(shows, 'DRAMA');
+                renderList(shows, 'TV');
             } catch (e) { console.error(e); }
         }
 
@@ -518,7 +553,7 @@
                 const score = data.averageScore ? (data.averageScore / 10).toFixed(1) : 'N/A';
                 document.getElementById('score').innerText = `${score}/10`;
 
-            } else { // DRAMA
+            } else { // TV SERIES
                 poster.src = data.image ? data.image.original : 'https://via.placeholder.com/400x350';
                 document.getElementById('title').innerText = data.name;
                 
